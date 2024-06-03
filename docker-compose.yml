@@ -1,12 +1,11 @@
-version: '3'
-
 services:
   db:
     image: postgres
     environment:
-      - POTSGRES_DB=postgres
-      - POTSGRES_USER=postgres
-      - POTSGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - TZ=UTC
 
   web:
     build: .
@@ -15,5 +14,12 @@ services:
       - .:/code
     ports:
       - "8000:8000"
+    depends_on:
+      - db
+
+  adminer:
+    image: adminer
+    ports:
+      - "8080:8080"
     depends_on:
       - db
