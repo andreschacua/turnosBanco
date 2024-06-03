@@ -6,13 +6,11 @@ def inicio_usuarios(request):
     return render(request, "index.html")
 
 def comparar(request):
+    cedula = request.GET.get("cedula", "")
     
+    if cedula:
+        clientes = Clientes.objects.filter(cedula__icontains=cedula)
+    else:
+        clientes = []
     
-    mensaje = "cedula usuario: %r" %request.GET["cedula"]
-    cedula = request.GET["cedula"]
-    
-    clientes = Clientes.objects.filter(cedula__icontains = cedula)
-    
-    return render(request, "resultados_busqueda.html", {"clientes":clientes, "query":cedula})
-    
-    return HttpResponse(mensaje)
+    return render(request, "resultados_busqueda.html", {"clientes": clientes, "query": cedula})

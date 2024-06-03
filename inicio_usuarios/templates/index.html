@@ -8,12 +8,10 @@
 </head>
 <body>
     <h1>Gestion de turnos</h1>
-    <form action="/comparar/" method="GET">
-        <label for="">CEDULA:</label>
-        <input type="int" name="cedula">
-        <br>
-        <br>
-        <input type="submit" value="GENERAR">
-    </form >
+    <form method="get" action="{% url 'comparar' %}">
+        <label for="cedula">Cédula:</label>
+        <input type="text" id="cedula" name="cedula">
+        <button type="submit">Buscar</button>
+    </form>
 </body>
 </html>

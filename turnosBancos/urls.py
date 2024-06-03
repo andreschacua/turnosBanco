@@ -20,5 +20,5 @@ from inicio_usuarios import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('inicio/', views.inicio_usuarios),
-    path('comparar/', views.comparar)
+    path('comparar/', views.comparar, name = "comparar")
 ]
