@@ -19,6 +19,10 @@ from inicio_usuarios import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('inicio/', views.inicio_usuarios),
-    path('comparar/', views.comparar, name = "comparar")
+    path('', views.inicio_usuarios, name='inicio'),
+    path('comparar/', views.comparar, name='comparar'),
+    path('agregar-cliente/', views.agregar_cliente, name='agregar_cliente'),
+    path('asignar-turno/', views.asignar_turno, name='asignar_turno'),
+    path('registro-cliente/<str:cedula>/', views.registro_cliente, name='registro_cliente'),
 ]
+

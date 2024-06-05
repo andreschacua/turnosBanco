@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilo.css">
-    <title>Document</title>
+    <title>Gestión Turnos</title>
 </head>
 <body>
-    <h1>Gestion de turnos</h1>
+    <h1>Banco X</h1>
     <form method="get" action="{% url 'comparar' %}">
-        <label for="cedula">Cédula:</label>
+        <p>Ingrese su Cedula de Ciudadania</p>
+        <label for="cedula"></label>
         <input type="text" id="cedula" name="cedula">
-        <button type="submit">Buscar</button>
+        <button type="submit">Ingresar</button>
     </form>
 </body>
 </html>
