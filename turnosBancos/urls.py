@@ -24,5 +24,6 @@ urlpatterns = [
     path('agregar-cliente/', views.agregar_cliente, name='agregar_cliente'),
     path('asignar-turno/', views.asignar_turno, name='asignar_turno'),
     path('registro-cliente/<str:cedula>/', views.registro_cliente, name='registro_cliente'),
+    path('mostrar-turno/', views.asignar_turno, name='mostrar_turno'),
 ]
 

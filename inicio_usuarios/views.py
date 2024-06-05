@@ -43,3 +43,9 @@ def agregar_cliente(request):
             nuevo_cliente.save()
             return redirect('ver_clientes')
     return render(request, 'agregar_cliente.html')
+
+def asignar_turno(request):
+    if request.method == 'POST':
+        tipo_turno = request.POST.get('tipo_turno')
+        return render(request, 'mostrar_turno.html', {'tipo_turno': tipo_turno})
+    return render(request, 'asignar_turno.html')
