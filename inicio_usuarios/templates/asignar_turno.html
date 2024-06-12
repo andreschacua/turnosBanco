@@ -8,20 +8,13 @@
 <body>
     <h1>Asignar Turno</h1>
     <p>Asignar turno a la cédula encontrada.</p>
-    <form action="{% url 'mostrar_turno' %}" method="post">
+    <form method="post">
         {% csrf_token %}
-        <input type="hidden" name="tipo_turno" value="Caja">
-        <input type="submit" value="Caja">
-    </form>
-    <form action="{% url 'mostrar_turno' %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="tipo_turno" value="Asesor">
-        <input type="submit" value="Asesor">
-    </form>
-    <form action="{% url 'mostrar_turno' %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="tipo_turno" value="Gerencia">
-        <input type="submit" value="Gerencia">
+        <input type="hidden" name="cedula" value="{{ cedula }}">
+        <button type="submit" name="caja">Caja</button>
+        <button type="submit" name="asesor">Asesor</button>
+        <button type="submit" name="gerencia">Gerencia</button>
     </form>
 </body>
 </html>
+

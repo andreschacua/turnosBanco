@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turnos de Caja</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#turno-form').submit(function(event) {
+                event.preventDefault();
+                $.ajax({
+                    url: "{% url 'procesar_turno' %}",
+                    type: "POST",
+                    data: $(this).serialize(),
+                    success: function(data) {
+                        if (data.success) {
+                            alert('Turno ' + data.turno + ' procesado en ' + data.caja);
+                            $('#turno-form')[0].reset();
+                        } else {
+                            alert('Error al procesar el turno');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Turnos de Caja</h1>
+    <form id="turno-form" method="post">
+        {% csrf_token %}
+        <label for="caja">Seleccionar Caja:</label>
+        <select id="caja" name="caja">
+            <option value="caja_1">Caja 1</option>
+            <option value="caja_2">Caja 2</option>
+            <option value="caja_3">Caja 3</option>
+            <option value="caja_4">Caja 4</option>
+            <option value="caja_5">Caja 5</option>
+        </select>
+        <button type="submit">Seleccionar Turno</button>
+    </form>
+    <h2>Turnos Disponibles</h2>
+    <table border="1">
+        <tr>
+            <th>Cédula</th>
+            <th>Turno</th>
+        </tr>
+        {% for turno in turnos_caja %}
+        <tr>
+            <td>{{ turno.cedula }}</td>
+            <td>{{ turno.turno }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+

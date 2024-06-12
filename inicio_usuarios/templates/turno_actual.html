@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turno Actual</title>
+    <style>
+        .turno-actual {
+            font-size: 3em;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .caja-actual {
+            font-size: 1.5em;
+            text-align: center;
+        }
+        .turnos-pasados {
+            margin-top: 20px;
+            border: 1px solid black;
+        }
+        .turnos-pasados th, .turnos-pasados td {
+            padding: 10px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function actualizarTurnoActual() {
+            $.ajax({
+                url: "{% url 'mostrar_turno_actual' %}",
+                type: "GET",
+                success: function(data) {
+                    $('#turno-actual').text(data.turno_actual.turno);
+                    $('#caja-actual').text(data.turno_actual.caja);
+                    var turnosPasados = '';
+                    $.each(data.turnos_pasados, function(index, turno) {
+                        turnosPasados += '<tr><td>' + turno.turno + '</td><td>' + turno.caja + '</td><td>' + turno.fecha_hora + '</td></tr>';
+                    });
+                    $('#turnos-pasados tbody').html(turnosPasados);
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            actualizarTurnoActual();
+            setInterval(actualizarTurnoActual, 5000);
+        });
+    </script>
+</head>
+<body>
+    <h1>Turno Actual</h1>
+    <div class="turno-actual" id="turno-actual">{{ turno_actual.turno }}</div>
+    <div class="caja-actual" id="caja-actual">{{ turno_actual.caja }}</div>
+    <h2>Turnos Pasados</h2>
+    <table class="turnos-pasados" id="turnos-pasados">
+        <thead>
+            <tr>
+                <th>Turno</th>
+                <th>Caja</th>
+                <th>Fecha y Hora</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for turno in turnos_pasados %}
+            <tr>
+                <td>{{ turno.turno }}</td>
+                <td>{{ turno.caja }}</td>
+                <td>{{ turno.fecha_hora }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+
+
+
