@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'inicio_usuarios',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -68,7 +69,19 @@ TEMPLATES = [
     },
 ]
 
+ASGI_APPLICATION = "turnosBanco.asgi.application"
+
 WSGI_APPLICATION = 'turnosBancos.wsgi.application'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("redis", 6379)],
+        },
+    },
+}
+
 
 
 # Database

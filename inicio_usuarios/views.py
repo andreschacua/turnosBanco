@@ -62,30 +62,3 @@ def agregar_cliente(request):
             nuevo_cliente.save()
             return redirect('ver_clientes')
     return render(request, 'agregar_cliente.html')
-
-def ver_turnos_caja(request):
-    turnos_caja = Turnos.objects.filter(turno__startswith='C').order_by('turno')
-    return render(request, 'turnos_caja.html', {'turnos_caja': turnos_caja})
-
-def procesar_turno(request):
-    if request.method == 'POST':
-        caja = request.POST.get('caja')
-        turno = Turnos.objects.filter(turno__startswith='C').order_by('turno').first()
-        if turno:
-            TurnosPasados.objects.create(cedula=turno.cedula, turno=turno.turno, caja=caja)
-            turno.delete()
-            return JsonResponse({'success': True, 'turno': turno.turno, 'caja': caja})
-    return JsonResponse({'success': False})
-
-def mostrar_turno_actual(request):
-    turno_actual = TurnosPasados.objects.last()
-    turnos_pasados = TurnosPasados.objects.order_by('-fecha_hora')[:10]
-    if request.is_ajax():
-        return JsonResponse({
-            'turno_actual': {'turno': turno_actual.turno, 'caja': turno_actual.caja},
-            'turnos_pasados': [
-                {'turno': turno.turno, 'caja': turno.caja, 'fecha_hora': turno.fecha_hora.strftime('%Y-%m-%d %H:%M:%S')}
-                for turno in turnos_pasados
-            ]
-        })
-    return render(request, 'turno_actual.html', {'turno_actual': turno_actual, 'turnos_pasados': turnos_pasados})
