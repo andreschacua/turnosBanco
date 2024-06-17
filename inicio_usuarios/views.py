@@ -117,3 +117,12 @@ def atencion_usuario_view(request):
 
     turnos_en_espera = Turnos.objects.filter(turno__startswith='A')
     return render(request, 'atencion_usuario.html', {'turnos': turnos_en_espera})
+
+def turno_actual_view(request):
+    turno_actual = TurnosPasados.objects.order_by('-fecha_hora').first()
+    historico_turnos = TurnosPasados.objects.order_by('-fecha_hora')[:5]
+
+    return render(request, 'turno_actual.html', {
+        'turno_actual': turno_actual,
+        'historico_turnos': historico_turnos[1:]  # Excluye el turno actual del histórico
+    })

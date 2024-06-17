@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Turno Actual y Histórico</title>
+</head>
+<body>
+    <h1>Turno Actual</h1>
+    {% if turno_actual %}
+        <p><strong>Turno:</strong> {{ turno_actual.turno }}</p>
+        <p><strong>Atendido en:</strong> {{ turno_actual.caja }}</p>
+        <p><strong>Hora:</strong> {{ turno_actual.fecha_hora }}</p>
+    {% else %}
+        <p>No hay turnos en atención actualmente.</p>
+    {% endif %}
+
+    <h2>Histórico de los Últimos 4 Turnos</h2>
+    <ul>
+        {% for turno in historico_turnos %}
+            <li>
+                <strong>Turno:</strong> {{ turno.turno }} - 
+                <strong>Atendido en:</strong> {{ turno.caja }} - 
+                <strong>Hora:</strong> {{ turno.fecha_hora }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
