@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Turnos para Gerencia</title>
+</head>
+<body>
+    <h1>Gestión de Turnos para Gerencia</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Asignar Siguiente Turno</button>
+    </form>
+
+    <h2>Turnos en espera:</h2>
+    <ul>
+        {% for turno in turnos %}
+            <li>{{ turno.turno }} - {{ turno.cedula }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

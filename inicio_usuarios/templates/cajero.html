@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Turnos para Cajeros</title>
+</head>
+<body>
+    <h1>Gestión de Turnos para Cajeros</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        <label for="caja">Seleccione su caja:</label>
+        <select name="caja" id="caja">
+            <option value="caja_1">Caja 1</option>
+            <option value="caja_2">Caja 2</option>
+            <option value="caja_3">Caja 3</option>
+            <option value="caja_4">Caja 4</option>
+            <option value="caja_5">Caja 5</option>
+        </select>
+        <button type="submit">Asignar Siguiente Turno</button>
+    </form>
+
+    <h2>Turnos en espera:</h2>
+    <ul>
+        {% for turno in turnos %}
+            <li>{{ turno.turno }} - {{ turno.cedula }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

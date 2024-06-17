@@ -61,4 +61,59 @@ def agregar_cliente(request):
             nuevo_cliente = Clientes(nombre=nombre, cedula=cedula, telefono=telefono)
             nuevo_cliente.save()
             return redirect('ver_clientes')
-    return render(request, 'agregar_cliente.html')
+    return render(request, 'agregar_cliente.html') 
+
+def cajero_view(request):
+    if request.method == 'POST':
+        caja = request.POST.get('caja')
+        if caja:
+            siguiente_turno = Turnos.objects.filter(turno__startswith='C').order_by('id').first()
+            if siguiente_turno:
+                TurnosPasados.objects.create(
+                    cedula=siguiente_turno.cedula,
+                    turno=siguiente_turno.turno,
+                    caja=caja
+                )
+                siguiente_turno.delete()
+                return HttpResponse(f'Turno {siguiente_turno.turno} asignado a {caja}')
+            else:
+                return HttpResponse('No hay turnos en espera.')
+
+    turnos_en_espera = Turnos.objects.filter(turno__startswith='C')
+    return render(request, 'cajero.html', {'turnos': turnos_en_espera})
+
+def gerencia_view(request):
+    if request.method == 'POST':
+        siguiente_turno = Turnos.objects.filter(turno__startswith='G').order_by('id').first()
+        if siguiente_turno:
+            TurnosPasados.objects.create(
+                cedula=siguiente_turno.cedula,
+                turno=siguiente_turno.turno,
+                caja='gerencia'
+            )
+            siguiente_turno.delete()
+            return HttpResponse(f'Turno {siguiente_turno.turno} asignado a gerencia')
+        else:
+            return HttpResponse('No hay turnos en espera.')
+
+    turnos_en_espera = Turnos.objects.filter(turno__startswith='G')
+    return render(request, 'gerencia.html', {'turnos': turnos_en_espera})
+
+def atencion_usuario_view(request):
+    if request.method == 'POST':
+        modulo = request.POST.get('modulo')
+        if modulo:
+            siguiente_turno = Turnos.objects.filter(turno__startswith='A').order_by('id').first()
+            if siguiente_turno:
+                TurnosPasados.objects.create(
+                    cedula=siguiente_turno.cedula,
+                    turno=siguiente_turno.turno,
+                    caja=modulo
+                )
+                siguiente_turno.delete()
+                return HttpResponse(f'Turno {siguiente_turno.turno} asignado a {modulo}')
+            else:
+                return HttpResponse('No hay turnos en espera.')
+
+    turnos_en_espera = Turnos.objects.filter(turno__startswith='A')
+    return render(request, 'atencion_usuario.html', {'turnos': turnos_en_espera})

@@ -24,3 +24,4 @@ class TurnosPasados(models.Model):
 
     def __str__(self):
         return f'{self.turno} - {self.caja} - {self.fecha_hora}'
+    

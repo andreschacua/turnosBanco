@@ -24,6 +24,8 @@ urlpatterns = [
     path('agregar-cliente/', views.agregar_cliente, name='agregar_cliente'),
     path('asignar-turno/', views.asignar_turno, name='asignar_turno'),
     path('registro-cliente/<str:cedula>/', views.registro_cliente, name='registro_cliente'),
-    
+    path('cajero/', views.cajero_view, name='cajero_view'),
+    path('gerencia/', views.gerencia_view, name='gerencia_view'),
+    path('atencion-usuario/', views.atencion_usuario_view, name='atencion_usuario_view'),
 ]
 

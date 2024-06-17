@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Turnos para Atención al Usuario</title>
+</head>
+<body>
+    <h1>Gestión de Turnos para Atención al Usuario</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        <label for="modulo">Seleccione su módulo:</label>
+        <select name="modulo" id="modulo">
+            <option value="modulo_1">Módulo 1</option>
+            <option value="modulo_2">Módulo 2</option>
+            <option value="modulo_3">Módulo 3</option>
+            <option value="modulo_4">Módulo 4</option>
+            <option value="modulo_5">Módulo 5</option>
+        </select>
+        <button type="submit">Asignar Siguiente Turno</button>
+    </form>
+
+    <h2>Turnos en espera:</h2>
+    <ul>
+        {% for turno in turnos %}
+            <li>{{ turno.turno }} - {{ turno.cedula }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
